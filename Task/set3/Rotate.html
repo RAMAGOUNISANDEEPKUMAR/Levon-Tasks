@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotate Array to the Left</title>
+</head>
+<body>
+
+    <h1>Rotate Array to the Left</h1>
+    
+    <label for="arrayInput">Enter numbers: </label>
+    <input type="text" id="arrayInput">
+    
+    <br><br>
+
+    <label for="kInput">Enter k value: </label>
+    <input type="number" id="kInput">
+    
+    <br><br>
+    
+    <button onclick="rotateArray()">Rotate Array</button>
+
+    <p id="result"></p>
+
+    <script>
+        function rotateArray() {
+            const arrayInput = document.getElementById('arrayInput').value;
+            const k = parseInt(document.getElementById('kInput').value);
+            const arr = arrayInput.split(',').map(Number);
+            if (arr.length === 0) {
+                document.getElementById('result').innerText = 'Please enter some numbers!';
+                return;
+            }
+
+            const n = arr.length;
+            const effectiveK = k % n; 
+            const reverse = (start, end) => {
+                while (start < end) {
+                    [arr[start], arr[end]] = [arr[end], arr[start]]; 
+                    start++;
+                    end--;
+                }
+            };
+            reverse(0, effectiveK - 1);
+            reverse(effectiveK, n - 1);
+            reverse(0, n - 1);
+            document.getElementById('result').innerText = `Rotated Array: [${arr.join(', ')}]`;
+        }
+    </script>
+
+</body>
+</html>
